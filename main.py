@@ -18,6 +18,8 @@ class GraphicsEngine:
         pg.display.set_mode(self.WIN_SIZE, flags=pg.OPENGL | pg.DOUBLEBUF)
         # detect and use existing opengl context
         self.ctx = mgl.create_context()
+        # self.ctx.front_face = 'cw'
+        self.ctx.enable(flags=mgl.DEPTH_TEST | mgl.CULL_FACE) # To get a proper depth in view | Doesn't render invisible faces
         # create an object to help track time
         self.clock = pg.time.Clock()
         self.time = 0

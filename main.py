@@ -16,6 +16,9 @@ class GraphicsEngine:
         pg.display.gl_set_attribute(pg.GL_CONTEXT_PROFILE_MASK, pg.GL_CONTEXT_PROFILE_CORE)
         # create opengl context
         pg.display.set_mode(self.WIN_SIZE, flags=pg.OPENGL | pg.DOUBLEBUF)
+        # mouse settings 
+        pg.event.set_grab(True) # mouse cant escape the window
+        pg.mouse.set_visible(False)
         # detect and use existing opengl context
         self.ctx = mgl.create_context()
         # self.ctx.front_face = 'cw'
@@ -23,6 +26,7 @@ class GraphicsEngine:
         # create an object to help track time
         self.clock = pg.time.Clock()
         self.time = 0
+        self.delta_time = 0 # movement of camera to be independant of the frame rate
         # camera
         self.camera = Camera(self)
         # scene
@@ -53,8 +57,9 @@ class GraphicsEngine:
         while True:
             self.get_time()
             self.check_events()
+            self.camera.update()
             self.render()
-            self.clock.tick(60)
+            self.delta_time = self.clock.tick(60)
 
 if __name__ == '__main__':
     app = GraphicsEngine()

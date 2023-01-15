@@ -41,6 +41,7 @@ class Cube:
     def update(self):
         m_model = glm.rotate(self.m_model, self.app.time * 0.5, glm.vec3(0, 1, 0)) # * 0.5 - reduce the rotation
         self.shader_program['m_model'].write(m_model)
+        self.shader_program['m_view'].write(self.app.camera.m_view)
 
     def render(self):
         self.update()
